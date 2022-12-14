@@ -1,14 +1,19 @@
+:root {
+    --cor-principal: #54a16b;
+    --cor-body: #b0d8b0;
+}
+
 * {
     margin: 0px;
     padding: 0px;
 }
 
 body {
-    background-color: rgb(176, 216, 176);
+    background-color: var(--cor-body);
 }
 
 header {
-    background-color: rgb(76, 167, 114);
+    background-color: var(--cor-principal);
     margin: 0px;
     padding: 0px;
 }
@@ -19,15 +24,23 @@ header {
 
 .color {
     display: inline-block;
+    border-top-left-radius: 75%;
+    border-bottom-right-radius: 75%;
 }
 
 #color-palette {
     text-align: center;
     width: 300px;
-    margin: 50px auto;
+    margin: 20px auto 10px auto;
 }
 
 #button-random-color {
     display: block;
     margin: auto;
+}
+
+#pixel-board {
+    margin: 20px auto;
+    background-color: var(--cor-principal);
+    font-size: 0px;
 }
