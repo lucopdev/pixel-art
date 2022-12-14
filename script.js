@@ -7,7 +7,7 @@ h1.innerHTML = 'Paleta de Cores';
 header[0].appendChild(h1);
 
 const pallete = document.createElement('div');
-pallete.id = 'color-pallete';
+pallete.id = 'color-palette';
 document.body.appendChild(pallete);
 
 const colors = ['black', 'red', 'blue', 'yellow'];
@@ -20,3 +20,5 @@ for (let index = 0; index < colors.length; index += 1) {
   square.style.backgroundColor = colors[index];
   pallete.appendChild(square);
 }
+
+
