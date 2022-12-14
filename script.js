@@ -65,3 +65,16 @@ const createPixelsColumn = (numberOfPixels) => {
   }
 };
 createPixelsColumn(5);
+
+const color = palette.getElementsByClassName('color');
+const pixel = mainSquare.getElementsByClassName('pixel');
+for (let index = 0; index < color.length; index += 1) {
+  for (let innerIndex = 0; innerIndex < color.length; innerIndex += 1) {
+    color[index].addEventListener('click', (eventPalette) => {
+      pixel[innerIndex].addEventListener('click', (eventBoard) => {
+        eventBoard.target.style.backgroundColor = eventPalette.target.style.backgroundColor;
+      });
+      console.log();
+    });
+  }
+}

@@ -1,46 +1,46 @@
 :root {
-    --cor-principal: #54a16b;
-    --cor-body: #b0d8b0;
+	--cor-principal: #54a16b;
+	--cor-body: #b0d8b0;
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
+	margin: 0px;
+	padding: 0px;
 }
 
 body {
-    background-color: var(--cor-body);
+	background-color: var(--cor-body);
 }
 
 header {
-    background-color: var(--cor-principal);
-    margin: 0px;
-    padding: 0px;
+	background-color: var(--cor-principal);
+	margin: 0px;
+	padding: 0px;
 }
 
 #title {
-    text-align: center;
+	text-align: center;
 }
 
 .color {
-    display: inline-block;
-    border-top-left-radius: 75%;
-    border-bottom-right-radius: 75%;
+	display: inline-block;
+	border-top-left-radius: 75%;
+	border-bottom-right-radius: 75%;
 }
 
 #color-palette {
-    text-align: center;
-    width: 300px;
-    margin: 20px auto 10px auto;
+	text-align: center;
+	width: 300px;
+	margin: 20px auto 10px auto;
 }
 
 #button-random-color {
-    display: block;
-    margin: auto;
+	display: block;
+	margin: auto;
 }
 
 #pixel-board {
-    margin: 20px auto;
-    background-color: var(--cor-principal);
-    font-size: 0px;
+	margin: 20px auto;
+	background-color: var(--cor-principal);
+	font-size: 0px;
 }
