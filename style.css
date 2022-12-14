@@ -1,6 +1,12 @@
 body {
-    background-color: green;
+    background-color: rgb(104, 161, 104);
 }
+
 #title {
     text-align: center;
+}
+
+.colorPallet {
+    display: inline-block;
+    border: solid 1px black;
 }
