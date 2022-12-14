@@ -1,5 +1,16 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
-    background-color: rgb(104, 161, 104);
+    background-color: rgb(176, 216, 176);
+}
+
+header {
+    background-color: rgb(76, 167, 114);
+    margin: 0px;
+    padding: 0px;
 }
 
 #title {
@@ -10,6 +21,13 @@ body {
     display: inline-block;
 }
 
-#color-pallete {
+#color-palette {
     text-align: center;
+    width: 300px;
+    margin: 50px auto;
+}
+
+#button-random-color {
+    display: block;
+    margin: auto;
 }
