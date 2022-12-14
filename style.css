@@ -6,7 +6,10 @@ body {
     text-align: center;
 }
 
-.colorPallet {
+.color {
     display: inline-block;
-    border: solid 1px black;
+}
+
+#color-pallete {
+    text-align: center;
 }
