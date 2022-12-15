@@ -24,14 +24,23 @@ for (let index = 0; index < colors.length; index += 1) {
   palette.appendChild(square);
 }
 
+// cria div para botões
+const buttonsDiv = document.createElement('div');
+buttonsDiv.id = 'buttons-div';
+document.body.appendChild(buttonsDiv);
+
+// cria botão de cores aleatórias
 const btnRandom = document.createElement('button');
 btnRandom.id = 'button-random-color';
-btnRandom.style.width = '120px';
-btnRandom.style.height = '30px';
+btnRandom.style.width = '90px';
+btnRandom.style.height = '40px';
+btnRandom.style.fontSize = '12px';
+btnRandom.style.display = 'inline-block';
 btnRandom.style.backgroundColor = '#62f58e';
 btnRandom.innerHTML = 'Cores aleatórias';
-document.body.appendChild(btnRandom);
+buttonsDiv.appendChild(btnRandom);
 
+// evento para receber clique no botão aleatório
 btnRandom.addEventListener('click', () => {
   const square = palette.childNodes;
   const size = palette.childNodes.length;
@@ -43,18 +52,37 @@ btnRandom.addEventListener('click', () => {
   }
 });
 
+// cria botão reset
+const btnReset = document.createElement('button');
+btnReset.id = 'clear-board';
+btnReset.innerHTML = 'Limpar';
+btnReset.style.width = '90px';
+btnReset.style.height = '40px';
+btnReset.style.fontSize = '12px';
+btnReset.style.backgroundColor = '#62f58e';
+buttonsDiv.appendChild(btnReset);
+
+btnReset.addEventListener('click', () => {
+  const pixel = document.getElementsByClassName('pixel');
+  for (let index = 0; index < pixel.length; index += 1) {
+    pixel[index].style.backgroundColor = 'white';
+    console.log(pixel[index].style.backgroundColor);
+  }
+});
+
 // fazer o item 5
 const mainSquare = document.createElement('div');
+
 const createPixelsLine = (numberOfPixels) => {
   for (let index = 0; index < numberOfPixels; index += 1) {
-    const pixels = document.createElement('div');
-    pixels.className = 'pixel';
-    pixels.style.width = '40px';
-    pixels.style.height = '40px';
-    pixels.style.backgroundColor = 'white';
-    pixels.style.border = 'solid 1px black';
-    pixels.style.display = 'inline-block';
-    mainSquare.appendChild(pixels);
+    const pixel = document.createElement('div');
+    pixel.className = 'pixel';
+    pixel.style.width = '40px';
+    pixel.style.height = '40px';
+    pixel.style.backgroundColor = 'white';
+    pixel.style.border = 'solid 1px black';
+    pixel.style.display = 'inline-block';
+    mainSquare.appendChild(pixel);
   }
 };
 
@@ -85,4 +113,38 @@ document.addEventListener('click', (event) => {
   }
 });
 
+color[0].addEventListener('click', () => {
+  if (!color[0].className.includes('selected')) {
+    color[0].className += ' selected';
+    color[1].classList.remove('selected');
+    color[2].classList.remove('selected');
+    color[3].classList.remove('selected');
+  }
+});
 
+color[1].addEventListener('click', () => {
+  if (!color[1].className.includes('selected')) {
+    color[1].className += ' selected';
+    color[0].classList.remove('selected');
+    color[2].classList.remove('selected');
+    color[3].classList.remove('selected');
+  }
+});
+
+color[2].addEventListener('click', () => {
+  if (!color[2].className.includes('selected')) {
+    color[2].className += ' selected';
+    color[0].classList.remove('selected');
+    color[1].classList.remove('selected');
+    color[3].classList.remove('selected');
+  }
+});
+
+color[3].addEventListener('click', () => {
+  if (!color[3].className.includes('selected')) {
+    color[3].className += ' selected';
+    color[0].classList.remove('selected');
+    color[1].classList.remove('selected');
+    color[2].classList.remove('selected');
+  }
+});
