@@ -83,6 +83,8 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 // fazer o item 5
+
+// cria o pixelboard
 const mainSquare = document.createElement('div');
 
 const createPixelsLine = (numberOfPixels) => {
