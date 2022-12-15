@@ -27,6 +27,8 @@ for (let index = 0; index < colors.length; index += 1) {
 // cria div para botões
 const buttonsDiv = document.createElement('div');
 buttonsDiv.id = 'buttons-div';
+buttonsDiv.style.width = '200px';
+buttonsDiv.style.margin = 'auto';
 document.body.appendChild(buttonsDiv);
 
 // cria botão de cores aleatórias
@@ -35,7 +37,6 @@ btnRandom.id = 'button-random-color';
 btnRandom.style.width = '90px';
 btnRandom.style.height = '40px';
 btnRandom.style.fontSize = '12px';
-btnRandom.style.display = 'inline-block';
 btnRandom.style.backgroundColor = '#62f58e';
 btnRandom.innerHTML = 'Cores aleatórias';
 buttonsDiv.appendChild(btnRandom);
@@ -70,6 +71,17 @@ btnReset.addEventListener('click', () => {
   }
 });
 
+// cria input tamanho do quadro de pixels
+const input = document.createElement('input');
+input.id = 'board-size';
+buttonsDiv.appendChild(input);
+
+// cria um botão VQV
+const buttonVQV = document.createElement('button');
+buttonVQV.id = 'generate-board';
+buttonVQV.innerText = 'VQV';
+buttonsDiv.appendChild(buttonVQV);
+
 // fazer o item 5
 const mainSquare = document.createElement('div');
 
@@ -97,6 +109,7 @@ const createPixelsColumn = (numberOfPixels) => {
 };
 createPixelsColumn(5);
 
+// Lógica para salvar a cor e pintar o pixel
 const color = palette.getElementsByClassName('color');
 let colorSave = color[0].style.backgroundColor;
 
@@ -108,11 +121,13 @@ palette.addEventListener('click', (event) => {
 });
 
 document.addEventListener('click', (event) => {
-  if (event.target.className.includes('pixel')) {
-    event.target.style.backgroundColor = colorSave;
+  const element = event.target;
+  if (element.className.includes('pixel')) {
+    element.style.backgroundColor = colorSave;
   }
 });
 
+// Selected apenas para a cor clicada
 color[0].addEventListener('click', () => {
   if (!color[0].className.includes('selected')) {
     color[0].className += ' selected';
