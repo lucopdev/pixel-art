@@ -2,16 +2,19 @@ const header = document.getElementsByTagName('header');
 const h1 = document.createElement('h1');
 let draw = false;
 
+// cria o titulo
 h1.id = 'title';
-h1.style.fontSize = '50px';
+h1.style.fontSize = '30px';
 h1.style.color = '#dddddd';
 h1.innerHTML = 'Paleta de Cores';
 header[0].appendChild(h1);
 
+// cria a div container para a paleta de cores
 const palette = document.createElement('div');
 palette.id = 'color-palette';
 document.body.appendChild(palette);
 
+// cria a paleta de cores
 const colors = ['black', 'red', 'blue', 'yellow'];
 for (let index = 0; index < colors.length; index += 1) {
   const square = document.createElement('div');
@@ -19,8 +22,8 @@ for (let index = 0; index < colors.length; index += 1) {
     square.className = 'selected ';
   }
   square.className += 'color';
-  square.style.width = '70px';
-  square.style.height = '70px';
+  square.style.width = '50px';
+  square.style.height = '50px';
   square.style.border = 'solid 1px black';
   square.style.backgroundColor = colors[index];
   palette.appendChild(square);
@@ -59,7 +62,6 @@ btnReset.addEventListener('click', () => {
   const pixel = document.getElementsByClassName('pixel');
   for (let index = 0; index < pixel.length; index += 1) {
     pixel[index].style.backgroundColor = 'white';
-    console.log(pixel[index].style.backgroundColor);
   }
 });
 
@@ -103,10 +105,8 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
+  document.body.removeChild(mainSquare);
   createPixelBoard(input.value);
-  mainSquare.style.width = `${input.value * 42}px`;
-  mainSquare.style.height = `${input.value * 42}px`;
-  input.value = '';
 });
 
 // Lógica para salvar a cor e pintar o pixel
@@ -116,15 +116,20 @@ let colorSave = color[0].style.backgroundColor;
 palette.addEventListener('click', (event) => {
   if (event.target.className.includes('color')) {
     colorSave = event.target.style.backgroundColor;
-    console.log(colorSave);
   }
 });
 
 // lógica para desenhar enquanto estiver com o mousedown
-document.addEventListener('mouseover', (event) => {
+mainSquare.addEventListener('mouseover', (event) => {
   if (!draw) {
     return;
   }
+  const element = event.target;
+  if (element.className.includes('pixel')) {
+    element.style.backgroundColor = colorSave;
+  }
+});
+mainSquare.addEventListener('mousedown', (event) => {
   const element = event.target;
   if (element.className.includes('pixel')) {
     element.style.backgroundColor = colorSave;
@@ -138,7 +143,7 @@ window.addEventListener('mouseup', () => {
   draw = false;
 });
 
-// Selected apenas para a cor clicada
+// definir classe Selected apenas para a cor clicada (essa feature é desnecessária pois resolvi o código sem precisar fiz apenas por ser um item obrigatório)
 color[0].addEventListener('click', () => {
   if (!color[0].className.includes('selected')) {
     color[0].className += ' selected';
