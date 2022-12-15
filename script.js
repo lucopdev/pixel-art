@@ -1,5 +1,7 @@
 const header = document.getElementsByTagName('header');
 const h1 = document.createElement('h1');
+let draw = false;
+
 h1.id = 'title';
 h1.style.fontSize = '50px';
 h1.style.color = '#dddddd';
@@ -72,24 +74,27 @@ buttonsDiv.appendChild(input);
 const mainSquare = document.createElement('div');
 mainSquare.id = 'pixel-board';
 
+const createPixel = (numberOfPixels) => {
+  const pixel = document.createElement('div');
+  pixel.className = 'pixel';
+  mainSquare.appendChild(pixel);
+  mainSquare.style.width = `${numberOfPixels * 42}px`;
+  mainSquare.style.height = `${numberOfPixels * 42}px`;
+  return document.body.appendChild(mainSquare);
+};
 const createPixelBoard = (numberOfPixels) => {
-  for (let index = 0; index < numberOfPixels; index += 1) {
-    for (let index2 = 0; index2 < numberOfPixels; index2 += 1) {
-      const pixel = document.createElement('div');
-      pixel.className = 'pixel';
-      mainSquare.appendChild(pixel);
-      mainSquare.style.width = `${numberOfPixels * 42}px`;
-      mainSquare.style.height = `${numberOfPixels * 42}px`;
-      document.body.appendChild(mainSquare);
+  for (let outerIndex = 0; outerIndex < numberOfPixels; outerIndex += 1) {
+    for (let index = 0; index < numberOfPixels; index += 1) {
+      createPixel(numberOfPixels);
     }
   }
 };
 createPixelBoard(5);
 
 // cria função para remover pixelboard
-const removePixelBoard = () => {
-  document.body.removeChild(mainSquare);
-};
+// const removePixelBoard = () => {
+//   document.body.removeChild(mainSquare);
+// };
 
 // cria um botão VQV que recria o pixelboard
 const buttonVQV = document.createElement('button');
@@ -98,14 +103,10 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
-  for (let index = 0; index < document.body.children.length; index += 1) {
-    if (document.body.children[index].id.includes('pixel-board')) {
-      console.log('removeu');
-      removePixelBoard();
-      createPixelBoard(input.value);
-    }
-  }
-  console.log(document.body.children);
+  createPixelBoard(input.value);
+  mainSquare.style.width = `${input.value * 42}px`;
+  mainSquare.style.height = `${input.value * 42}px`;
+  input.value = '';
 });
 
 // Lógica para salvar a cor e pintar o pixel
@@ -119,11 +120,22 @@ palette.addEventListener('click', (event) => {
   }
 });
 
-document.addEventListener('click', (event) => {
+// lógica para desenhar enquanto estiver com o mousedown
+document.addEventListener('mouseover', (event) => {
+  if (!draw) {
+    return;
+  }
   const element = event.target;
   if (element.className.includes('pixel')) {
     element.style.backgroundColor = colorSave;
   }
+});
+
+window.addEventListener('mousedown', () => {
+  draw = true;
+});
+window.addEventListener('mouseup', () => {
+  draw = false;
 });
 
 // Selected apenas para a cor clicada
