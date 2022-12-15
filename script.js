@@ -13,7 +13,10 @@ document.body.appendChild(palette);
 const colors = ['black', 'red', 'blue', 'yellow'];
 for (let index = 0; index < colors.length; index += 1) {
   const square = document.createElement('div');
-  square.className = 'color';
+  if (colors[index] === 'black') {
+    square.className = 'selected ';
+  }
+  square.className += 'color';
   square.style.width = '70px';
   square.style.height = '70px';
   square.style.border = 'solid 1px black';
@@ -67,14 +70,19 @@ const createPixelsColumn = (numberOfPixels) => {
 createPixelsColumn(5);
 
 const color = palette.getElementsByClassName('color');
-const pixel = mainSquare.getElementsByClassName('pixel');
-for (let index = 0; index < color.length; index += 1) {
-  for (let innerIndex = 0; innerIndex < color.length; innerIndex += 1) {
-    color[index].addEventListener('click', (eventPalette) => {
-      pixel[innerIndex].addEventListener('click', (eventBoard) => {
-        eventBoard.target.style.backgroundColor = eventPalette.target.style.backgroundColor;
-      });
-      console.log();
-    });
+let colorSave = color[0].style.backgroundColor;
+
+palette.addEventListener('click', (event) => {
+  if (event.target.className.includes('color')) {
+    colorSave = event.target.style.backgroundColor;
+    console.log(colorSave);
   }
-}
+});
+
+document.addEventListener('click', (event) => {
+  if (event.target.className.includes('pixel')) {
+    event.target.style.backgroundColor = colorSave;
+  }
+});
+
+
