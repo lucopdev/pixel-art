@@ -27,17 +27,11 @@ for (let index = 0; index < colors.length; index += 1) {
 // cria div para botões
 const buttonsDiv = document.createElement('div');
 buttonsDiv.id = 'buttons-div';
-buttonsDiv.style.width = '200px';
-buttonsDiv.style.margin = 'auto';
 document.body.appendChild(buttonsDiv);
 
 // cria botão de cores aleatórias
 const btnRandom = document.createElement('button');
 btnRandom.id = 'button-random-color';
-btnRandom.style.width = '90px';
-btnRandom.style.height = '40px';
-btnRandom.style.fontSize = '12px';
-btnRandom.style.backgroundColor = '#62f58e';
 btnRandom.innerHTML = 'Cores aleatórias';
 buttonsDiv.appendChild(btnRandom);
 
@@ -57,10 +51,6 @@ btnRandom.addEventListener('click', () => {
 const btnReset = document.createElement('button');
 btnReset.id = 'clear-board';
 btnReset.innerHTML = 'Limpar';
-btnReset.style.width = '90px';
-btnReset.style.height = '40px';
-btnReset.style.fontSize = '12px';
-btnReset.style.backgroundColor = '#62f58e';
 buttonsDiv.appendChild(btnReset);
 
 btnReset.addEventListener('click', () => {
@@ -97,9 +87,9 @@ const createPixelBoard = (numberOfPixels) => {
 createPixelBoard(5);
 
 // cria função para remover pixelboard
-// const removePixelsColumn = () => {
-//   document.body.removeChild(mainSquare);
-// };
+const removePixelBoard = () => {
+  document.body.removeChild(mainSquare);
+};
 
 // cria um botão VQV que recria o pixelboard
 const buttonVQV = document.createElement('button');
@@ -107,18 +97,16 @@ buttonVQV.id = 'generate-board';
 buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
-// buttonVQV.addEventListener('click', () => {
-//   for (let index = 0; index < document.body.childNodes.length; index += 1) {
-//     if (document.body.childNodes[index].id === 'pixel-board') {
-//       removePixelsColumn();
-//       console.log('tem');
-//     } else {
-//       createPixelsColumn(input.value);
-//       input.value = '';
-//     }
-//   }
-//   console.log(document.body.children);
-// });
+buttonVQV.addEventListener('click', () => {
+  for (let index = 0; index < document.body.children.length; index += 1) {
+    if (document.body.children[index].id.includes('pixel-board')) {
+      console.log('removeu');
+      removePixelBoard();
+      createPixelBoard(input.value);
+    }
+  }
+  console.log(document.body.children);
+});
 
 // Lógica para salvar a cor e pintar o pixel
 const color = palette.getElementsByClassName('color');

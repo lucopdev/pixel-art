@@ -39,12 +39,18 @@ header {
 
 #buttons-div {
     text-align: center;
+    width: 200px;
+    margin: auto;
 }
 
 #button-random-color {
     margin: auto 2px;
     padding: 0;
     display: inline-block;
+    width: 90px;
+    height: 40px;
+    font-size: 12px;
+    background-color: #62f58e;
 }
 
 #clear-board {
@@ -52,6 +58,10 @@ header {
     margin: 0 auto;
     padding: 0;
     display: inline-block;
+    width: 90px;
+    height: 40px;
+    font-size: 12px;
+    background-color: #62f58e;
 }
 
 #board-size {
