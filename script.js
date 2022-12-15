@@ -71,45 +71,54 @@ btnReset.addEventListener('click', () => {
   }
 });
 
-// cria input tamanho do quadro de pixels
+// cria input para tamanho do pixelboard
 const input = document.createElement('input');
 input.id = 'board-size';
 buttonsDiv.appendChild(input);
-
-// cria um botão VQV
-const buttonVQV = document.createElement('button');
-buttonVQV.id = 'generate-board';
-buttonVQV.innerText = 'VQV';
-buttonsDiv.appendChild(buttonVQV);
 
 // fazer o item 5
 
 // cria o pixelboard
 const mainSquare = document.createElement('div');
+mainSquare.id = 'pixel-board';
 
-const createPixelsLine = (numberOfPixels) => {
+const createPixelBoard = (numberOfPixels) => {
   for (let index = 0; index < numberOfPixels; index += 1) {
-    const pixel = document.createElement('div');
-    pixel.className = 'pixel';
-    pixel.style.width = '40px';
-    pixel.style.height = '40px';
-    pixel.style.backgroundColor = 'white';
-    pixel.style.border = 'solid 1px black';
-    pixel.style.display = 'inline-block';
-    mainSquare.appendChild(pixel);
+    for (let index2 = 0; index2 < numberOfPixels; index2 += 1) {
+      const pixel = document.createElement('div');
+      pixel.className = 'pixel';
+      mainSquare.appendChild(pixel);
+      mainSquare.style.width = `${numberOfPixels * 42}px`;
+      mainSquare.style.height = `${numberOfPixels * 42}px`;
+      document.body.appendChild(mainSquare);
+    }
   }
 };
+createPixelBoard(5);
 
-const createPixelsColumn = (numberOfPixels) => {
-  mainSquare.id = 'pixel-board';
-  mainSquare.style.width = `${numberOfPixels * 42}px`;
-  mainSquare.style.height = `${numberOfPixels * 42}px`;
-  document.body.appendChild(mainSquare);
-  for (let line = 0; line < numberOfPixels; line += 1) {
-    createPixelsLine(numberOfPixels);
-  }
-};
-createPixelsColumn(5);
+// cria função para remover pixelboard
+// const removePixelsColumn = () => {
+//   document.body.removeChild(mainSquare);
+// };
+
+// cria um botão VQV que recria o pixelboard
+const buttonVQV = document.createElement('button');
+buttonVQV.id = 'generate-board';
+buttonVQV.innerText = 'VQV';
+buttonsDiv.appendChild(buttonVQV);
+
+// buttonVQV.addEventListener('click', () => {
+//   for (let index = 0; index < document.body.childNodes.length; index += 1) {
+//     if (document.body.childNodes[index].id === 'pixel-board') {
+//       removePixelsColumn();
+//       console.log('tem');
+//     } else {
+//       createPixelsColumn(input.value);
+//       input.value = '';
+//     }
+//   }
+//   console.log(document.body.children);
+// });
 
 // Lógica para salvar a cor e pintar o pixel
 const color = palette.getElementsByClassName('color');
