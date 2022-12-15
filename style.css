@@ -1,75 +1,76 @@
 :root {
-    --cor-principal: #54a16b;
+    
+	--cor-principal: #54a16b;
 
-    --cor-body: #b0d8b0;
+	--cor-body: #b0d8b0;
 
 }
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    background-color: var(--cor-body);
+  background-color: var(--cor-body);
 }
 
 header {
-    background-color: var(--cor-principal);
-    margin: 0;
-    padding: 0;
+	background-color: var(--cor-principal);
+	margin: 0;
+	padding: 0;
 }
 
 #title {
-    text-align: center;
+	text-align: center;
 }
 
 .color {
-    display: inline-block;
-    border-top-left-radius: 75%;
-    border-bottom-right-radius: 75%;
+	display: inline-block;
+	border-top-left-radius: 75%;
+	border-bottom-right-radius: 75%;
 }
 
 #color-palette {
-    text-align: center;
-    width: 300px;
-    margin: 10px auto;
+	text-align: center;
+	width: 300px;
+	margin: 10px auto;
 }
 
 #buttons-div {
-    text-align: center;
+	text-align: center;
 }
 
 #button-random-color {
-    margin: auto 2px;
-    padding: 0;
-    display: inline-block;
+	margin: auto 2px;
+	padding: 0;
+	display: inline-block;
 }
 
 #clear-board {
-    vertical-align: bottom;
-    margin: 0 auto;
-    padding: 0;
-    display: inline-block;
+	vertical-align: bottom;
+	margin: 0 auto;
+	padding: 0;
+	display: inline-block;
 }
 
 #board-size {
-    margin: 10px auto;
-    width: 30px;
-    height: 25px;
-    text-align: center;
+	margin: 10px auto;
+	width: 30px;
+	height: 25px;
+	text-align: center;
 }
 
 #generate-board {
-    margin-left: 20px;
-    width: 50px;
-    height: 30px;
-    display: inline-block;
-    vertical-align: middle;
+	margin-left: 20px;
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 #pixel-board {
-    margin: 20px auto;
-    background-color: var(--cor-principal);
-    font-size: 0;
+	margin: 20px auto;
+	background-color: var(--cor-principal);
+	font-size: 0;
 }
