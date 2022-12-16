@@ -15,19 +15,22 @@ palette.id = 'color-palette';
 document.body.appendChild(palette);
 
 // cria a paleta de cores
-const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
-for (let index = 0; index < colorsPaletteArray.length; index += 1) {
-  const square = document.createElement('div');
-  if (index === 0) {
-    square.className = 'selected ';
+const createColorPalette = () => {
+  const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
+  for (let index = 0; index < colorsPaletteArray.length; index += 1) {
+    const square = document.createElement('div');
+    if (index === 0) {
+      square.className = 'selected ';
+    }
+    square.className += 'color';
+    square.style.width = '50px';
+    square.style.height = '50px';
+    square.style.border = 'solid 1px black';
+    square.style.backgroundColor = colorsPaletteArray[index];
+    palette.appendChild(square);
   }
-  square.className += 'color';
-  square.style.width = '50px';
-  square.style.height = '50px';
-  square.style.border = 'solid 1px black';
-  square.style.backgroundColor = colorsPaletteArray[index];
-  palette.appendChild(square);
-}
+};
+createColorPalette();
 
 // cria div para botões
 const buttonsDiv = document.createElement('div');
@@ -41,7 +44,6 @@ btnRandom.innerHTML = 'Cores aleatórias';
 buttonsDiv.appendChild(btnRandom);
 
 // evento para gerar cores automaticamente ao clicar no botão aleatório
-
 const square = palette.childNodes;
 const size = palette.childNodes.length;
 
@@ -64,14 +66,10 @@ btnRandom.addEventListener('click', () => {
 });
 
 // resgata as cores do localStorage
-if (localStorage.length > 0) {
-  const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
+const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
+if (colorArray !== null && localStorage.key('colorPalette')) {
   for (let index = 0; index < colorArray.length; index += 1) {
     square[index + 1].style.backgroundColor = colorArray[index];
-    console.log(square[0].style.backgroundColor);
-    console.log(square[1].style.backgroundColor);
-    console.log(square[2].style.backgroundColor);
-    console.log(square[3].style.backgroundColor);
   }
 }
 // cria botão reset
@@ -85,6 +83,8 @@ btnReset.addEventListener('click', () => {
   for (let index = 0; index < pixel.length; index += 1) {
     pixel[index].style.backgroundColor = 'white';
   }
+  localStorage.removeItem('colorPalette');
+  localStorage.removeItem('pixelBoard');
 });
 
 // cria input para tamanho do pixelboard
@@ -164,6 +164,24 @@ window.addEventListener('mouseup', () => {
   draw = false;
 });
 
+// cria a função para salvar e recuperar o deseneho atual no LocalStorage
+mainSquare.addEventListener('click', () => {
+  const pixelsBackgroundArray = [];
+  for (let index = 0; index < mainSquare.children.length; index += 1) {
+    pixelsBackgroundArray.push(mainSquare.children[index].style.backgroundColor);
+    localStorage.setItem('pixelBoard', JSON.stringify(pixelsBackgroundArray));
+  }
+});
+
+const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
+const pixel = mainSquare.getElementsByClassName('pixel');
+if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
+  for (let index = 0; index < mainSquare.children.length; index += 1) {
+    pixel[index].style.backgroundColor = pixelColorBg[index];
+  }
+}
+
+console.log(square);
 // definir classe Selected apenas para a cor clicada (essa feature é desnecessária pois resolvi o código sem precisar fiz apenas por ser um item obrigatório)
 color[0].addEventListener('click', () => {
   if (!color[0].className.includes('selected')) {
