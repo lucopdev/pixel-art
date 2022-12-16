@@ -23,8 +23,8 @@ const createColorPalette = () => {
       square.className = 'selected ';
     }
     square.className += 'color';
-    square.style.width = '50px';
-    square.style.height = '50px';
+    square.style.width = '80px';
+    square.style.height = '40px';
     square.style.border = 'solid 1px black';
     square.style.backgroundColor = colorsPaletteArray[index];
     palette.appendChild(square);
@@ -106,6 +106,7 @@ const createPixel = (numberOfPixels) => {
   mainSquare.style.height = `${numberOfPixels * 42}px`;
   return document.body.appendChild(mainSquare);
 };
+
 const createPixelBoard = (numberOfPixels) => {
   for (let outerIndex = 0; outerIndex < numberOfPixels; outerIndex += 1) {
     for (let index = 0; index < numberOfPixels; index += 1) {
@@ -123,8 +124,13 @@ const pixelBoardLimiter = () => {
   if (input.value > 50) {
     input.value = 50;
   }
+  if (mainSquare.style.width > parseInt(('50px'), 10)) {
+    mainSquare.style.width = '50px';
+  }
+  if (mainSquare.style.height > parseInt(('50px'), 10)) {
+    mainSquare.style.height = '50px';
+  }
 };
-
 // cria um botão VQV que recria o pixelboard
 const buttonVQV = document.createElement('button');
 buttonVQV.id = 'generate-board';
@@ -138,7 +144,7 @@ buttonVQV.addEventListener('click', () => {
   pixelBoardLimiter();
   mainSquare.style.width = `${input.value * 42}px`;
   mainSquare.style.height = `${input.value * 42}px`;
-
+  createPixelBoard(input.value);
   console.log(mainSquare.children);
 });
 // Lógica para salvar a cor no clique

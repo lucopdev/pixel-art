@@ -1,92 +1,96 @@
 :root {
 
-	--cor-principal: #54a16b;
+  --color-principal: #54a16b;
 
-	--cor-body: #b0d8b0;
+  --color-button: #62f58e;
+
+  --color-body: #b0d8b0;
 
 }
 
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	background-color: var(--cor-body);
+  background-color: var(--color-body);
 }
 
 header {
-	background-color: var(--cor-principal);
-	margin: 0;
-	padding: 0;
+  background-color: var(--color-principal);
+  margin: 0;
+  padding: 0;
 }
 
 #title {
-	text-align: center;
+  text-align: center;
 }
 
 .color {
-	display: inline-block;
-	border-top-left-radius: 75%;
-	border-bottom-right-radius: 75%;
+  display: inline-block;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #color-palette {
-	text-align: center;
-	width: 300px;
-	margin: 10px auto;
+  text-align: center;
+  width: 500px;
+  margin: 10px auto;
 }
 
 #buttons-div {
-	text-align: center;
-	width: 200px;
-	margin: auto;
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+  background-color: var(--color-principal);
 }
 
 #button-random-color {
-	margin: auto 2px;
-	padding: 0;
-	display: inline-block;
-	width: 90px;
-	height: 34px;
-	font-size: 12px;
-	background-color: rgb(98, 245, 142);
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+  font-size: 12px;
+  background-color: var(--color-button);
 }
 
 #clear-board {
-	vertical-align: bottom;
-	margin: 0 auto;
-	padding: 0;
-	display: inline-block;
-	width: 90px;
-	height: 34px;
-	font-size: 12px;
-	background-color: #62f58e;
+  vertical-align: bottom;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+  font-size: 12px;
+  background-color: var(--color-button);
 }
 
 #board-size {
-	margin: 10px auto;
-	width: 50px;
-	height: 25px;
-	text-align: center;
+  margin-right: 5px;
+  margin-bottom: 2px;
+  margin-left: 10px;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  vertical-align: bottom;
 }
 
 #generate-board {
-	margin-left: 20px;
-	width: 50px;
-	height: 30px;
-	display: inline-block;
-	vertical-align: middle;
+  margin-left: 5px;
+  width: 90px;
+  height: 34px;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: var(--color-button);
 }
 
 #pixel-board {
-	margin: 20px auto;
-	background-color: var(--cor-principal);
-	font-size: 0;
+  margin: 20px auto;
+  background-color: var(--color-principal);
+  font-size: 0;
 }
 
 .pixel {
-	background-color: white;
-	border: solid 1px black;
-	display: inline-block;
+  background-color: white;
+  border: solid 1px black;
+  display: inline-block;
 }
