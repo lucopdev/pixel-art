@@ -86,8 +86,6 @@ header {
 }
 
 .pixel {
-	width: 40px;
-	height: 40px;
 	background-color: white;
 	border: solid 1px black;
 	display: inline-block;

@@ -99,6 +99,8 @@ mainSquare.id = 'pixel-board';
 const createPixel = (numberOfPixels) => {
   const pixel = document.createElement('div');
   pixel.className = 'pixel';
+  pixel.style.width = '40px';
+  pixel.style.height = '40px';
   mainSquare.appendChild(pixel);
   mainSquare.style.width = `${numberOfPixels * 42}px`;
   mainSquare.style.height = `${numberOfPixels * 42}px`;
@@ -113,10 +115,15 @@ const createPixelBoard = (numberOfPixels) => {
 };
 createPixelBoard(5);
 
-// cria função para remover pixelboard
-// const removePixelBoard = () => {
-//   document.body.removeChild(mainSquare);
-// };
+// função para limitar o pixel board
+const pixelBoardLimiter = () => {
+  if (input.value < 5) {
+    input.value = 5;
+  }
+  if (input.value > 50) {
+    input.value = 50;
+  }
+};
 
 // cria um botão VQV que recria o pixelboard
 const buttonVQV = document.createElement('button');
@@ -125,10 +132,12 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
-  document.body.removeChild(mainSquare);
-  createPixelBoard(input.value);
-});
+  pixelBoardLimiter();
+  mainSquare.style.width = `${input.value * 42}px`;
+  mainSquare.style.height = `${input.value * 42}px`;
 
+  console.log(mainSquare.children);
+});
 // Lógica para salvar a cor no clique
 const color = palette.getElementsByClassName('color');
 let colorSave = color[0].style.backgroundColor;
@@ -181,7 +190,6 @@ if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
   }
 }
 
-console.log(square);
 // definir classe Selected apenas para a cor clicada (essa feature é desnecessária pois resolvi o código sem precisar fiz apenas por ser um item obrigatório)
 color[0].addEventListener('click', () => {
   if (!color[0].className.includes('selected')) {
