@@ -15,17 +15,17 @@ palette.id = 'color-palette';
 document.body.appendChild(palette);
 
 // cria a paleta de cores
-const colors = ['black', 'red', 'blue', 'yellow'];
-for (let index = 0; index < colors.length; index += 1) {
+const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
+for (let index = 0; index < colorsPaletteArray.length; index += 1) {
   const square = document.createElement('div');
-  if (colors[index] === 'black') {
+  if (colorsPaletteArray[index] === 'black') {
     square.className = 'selected ';
   }
   square.className += 'color';
   square.style.width = '50px';
   square.style.height = '50px';
   square.style.border = 'solid 1px black';
-  square.style.backgroundColor = colors[index];
+  square.style.backgroundColor = colorsPaletteArray[index];
   palette.appendChild(square);
 }
 
@@ -40,17 +40,36 @@ btnRandom.id = 'button-random-color';
 btnRandom.innerHTML = 'Cores aleatórias';
 buttonsDiv.appendChild(btnRandom);
 
-// evento para receber clique no botão aleatório
+// evento para gerar cores automaticamente ao clicar no botão aleatório
+
+const square = palette.childNodes;
+const size = palette.childNodes.length;
+
+let allColors = '';
 btnRandom.addEventListener('click', () => {
-  const square = palette.childNodes;
-  const size = palette.childNodes.length;
-  for (let index = 1; index < size; index += 1) {
+  const colorArray = [];
+  for (let index = 0; index < size; index += 1) {
     const randomColor1 = (Math.floor(Math.random() * 255));
     const randomColor2 = (Math.floor(Math.random() * 255));
     const randomColor3 = (Math.floor(Math.random() * 255));
-    square[index].style.backgroundColor = `rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`;
+    allColors = `rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`;
+    square[index].style.backgroundColor = allColors;
+    colorArray.push(allColors);
+    localStorage.setItem('colorPalette', JSON.stringify(colorArray));
   }
 });
+
+// resgata as cores do localStorage
+if (localStorage.length > 0) {
+  const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
+  for (let index = 1; index <= colorArray.length; index += 1) {
+    square[index].style.backgroundColor = colorArray[index];
+  }
+  console.log(square[0].style.backgroundColor);
+  console.log(square[1].style.backgroundColor);
+  console.log(square[2].style.backgroundColor);
+  console.log(square[3].style.backgroundColor);
+}
 
 // cria botão reset
 const btnReset = document.createElement('button');
@@ -69,8 +88,6 @@ btnReset.addEventListener('click', () => {
 const input = document.createElement('input');
 input.id = 'board-size';
 buttonsDiv.appendChild(input);
-
-// fazer o item 5
 
 // cria o pixelboard
 const mainSquare = document.createElement('div');
@@ -109,7 +126,7 @@ buttonVQV.addEventListener('click', () => {
   createPixelBoard(input.value);
 });
 
-// Lógica para salvar a cor e pintar o pixel
+// Lógica para salvar a cor no clique
 const color = palette.getElementsByClassName('color');
 let colorSave = color[0].style.backgroundColor;
 
@@ -129,6 +146,7 @@ mainSquare.addEventListener('mouseover', (event) => {
     element.style.backgroundColor = colorSave;
   }
 });
+
 mainSquare.addEventListener('mousedown', (event) => {
   const element = event.target;
   if (element.className.includes('pixel')) {
