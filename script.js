@@ -18,7 +18,7 @@ document.body.appendChild(palette);
 const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
 for (let index = 0; index < colorsPaletteArray.length; index += 1) {
   const square = document.createElement('div');
-  if (colorsPaletteArray[index] === 'black') {
+  if (index === 0) {
     square.className = 'selected ';
   }
   square.className += 'color';
@@ -49,28 +49,31 @@ let allColors = '';
 btnRandom.addEventListener('click', () => {
   const colorArray = [];
   for (let index = 0; index < size; index += 1) {
-    const randomColor1 = (Math.floor(Math.random() * 255));
-    const randomColor2 = (Math.floor(Math.random() * 255));
-    const randomColor3 = (Math.floor(Math.random() * 255));
-    allColors = `rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`;
-    square[index].style.backgroundColor = allColors;
-    colorArray.push(allColors);
-    localStorage.setItem('colorPalette', JSON.stringify(colorArray));
+    if (index === 0) {
+      square[index].style.backgroundColor = 'black';
+    } else {
+      const randomColor1 = (Math.floor(Math.random() * 255));
+      const randomColor2 = (Math.floor(Math.random() * 255));
+      const randomColor3 = (Math.floor(Math.random() * 255));
+      allColors = `rgb(${randomColor1}, ${randomColor2}, ${randomColor3})`;
+      square[index].style.backgroundColor = allColors;
+      colorArray.push(allColors);
+      localStorage.setItem('colorPalette', JSON.stringify(colorArray));
+    }
   }
 });
 
 // resgata as cores do localStorage
 if (localStorage.length > 0) {
   const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
-  for (let index = 1; index <= colorArray.length; index += 1) {
-    square[index].style.backgroundColor = colorArray[index];
+  for (let index = 0; index < colorArray.length; index += 1) {
+    square[index + 1].style.backgroundColor = colorArray[index];
+    console.log(square[0].style.backgroundColor);
+    console.log(square[1].style.backgroundColor);
+    console.log(square[2].style.backgroundColor);
+    console.log(square[3].style.backgroundColor);
   }
-  console.log(square[0].style.backgroundColor);
-  console.log(square[1].style.backgroundColor);
-  console.log(square[2].style.backgroundColor);
-  console.log(square[3].style.backgroundColor);
 }
-
 // cria botão reset
 const btnReset = document.createElement('button');
 btnReset.id = 'clear-board';
