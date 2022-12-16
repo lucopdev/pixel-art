@@ -1,18 +1,22 @@
+const headerDiv = document.createElement('header');
+document.body.appendChild(headerDiv);
 const header = document.getElementsByTagName('header');
 const h1 = document.createElement('h1');
 let draw = false;
 
 // cria o titulo
 h1.id = 'title';
-h1.style.fontSize = '30px';
-h1.style.color = '#dddddd';
 h1.innerHTML = 'Paleta de Cores';
 header[0].appendChild(h1);
 
+// cria a section que segura o menu de configuração
+const section = document.createElement('section');
+section.id = 'configContainer';
+document.body.appendChild(section);
 // cria a div container para a paleta de cores
 const palette = document.createElement('div');
 palette.id = 'color-palette';
-document.body.appendChild(palette);
+section.appendChild(palette);
 
 // cria a paleta de cores
 const createColorPalette = () => {
@@ -35,7 +39,7 @@ createColorPalette();
 // cria div para botões
 const buttonsDiv = document.createElement('div');
 buttonsDiv.id = 'buttons-div';
-document.body.appendChild(buttonsDiv);
+section.appendChild(buttonsDiv);
 
 // cria botão de cores aleatórias
 const btnRandom = document.createElement('button');
@@ -114,8 +118,7 @@ const createPixelBoard = (numberOfPixels) => {
     }
   }
 };
-createPixelBoard(5);
-
+createPixelBoard(10);
 // função para limitar o pixel board
 const pixelBoardLimiter = () => {
   if (input.value < 5) {
@@ -144,7 +147,7 @@ buttonVQV.addEventListener('click', () => {
   pixelBoardLimiter();
   mainSquare.style.width = `${input.value * 42}px`;
   mainSquare.style.height = `${input.value * 42}px`;
-  createPixelBoard(input.value);
+
   console.log(mainSquare.children);
 });
 // Lógica para salvar a cor no clique

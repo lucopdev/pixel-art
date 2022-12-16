@@ -1,30 +1,38 @@
 :root {
+  --backgroundColor1: rgb(11, 2, 32);
 
-  --color-principal: #54a16b;
+  --backgroundColor2: rgb(0, 255, 115);
 
-  --color-button: #62f58e;
+  --backgroundColor3: rgb(8, 2, 37);
 
-  --color-body: #b0d8b0;
+  --color-principal: #0000008e;
+
+  --color-button: #ececec00;
+
+  --color-font: #ffffff;
 
 }
 
 * {
   margin: 0;
   padding: 0;
+  color: var(--color-font);
+  font-family:monospace;
+  font-weight: bold;
 }
 
 body {
-  background-color: var(--color-body);
+    background-image: linear-gradient(to right, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
 }
 
 header {
-  background-color: var(--color-principal);
-  margin: 0;
-  padding: 0;
+  background-image: linear-gradient(to bottom, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
+  font-size: 20px;
 }
 
 #title {
   text-align: center;
+  color: black;
 }
 
 .color {
@@ -34,25 +42,36 @@ header {
   margin-right: 5px;
 }
 
+#configContainer {
+  font-size: 0px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.342);
+  width: 35%;
+}
+
 #color-palette {
   text-align: center;
   width: 500px;
-  margin: 10px auto;
+  margin: 0px auto;
 }
 
 #buttons-div {
+  margin: 10px auto;
   text-align: center;
   width: fit-content;
-  margin: auto;
   background-color: var(--color-principal);
+  border-radius: 15px;
 }
 
 #button-random-color {
   display: inline-block;
-  width: 90px;
+  width: 150px;
   height: 34px;
   font-size: 12px;
   background-color: var(--color-button);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 #clear-board {
@@ -66,12 +85,16 @@ header {
 
 #board-size {
   margin-right: 5px;
-  margin-bottom: 2px;
+  margin-bottom: 2.5px;
   margin-left: 10px;
   width: 50px;
   height: 25px;
   text-align: center;
   vertical-align: bottom;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid black;
+  color: black;
 }
 
 #generate-board {
@@ -81,10 +104,12 @@ header {
   display: inline-block;
   vertical-align: bottom;
   background-color: var(--color-button);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 #pixel-board {
-  margin: 20px auto;
+  margin: 0px auto;
   background-color: var(--color-principal);
   font-size: 0;
 }
