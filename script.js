@@ -132,6 +132,9 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
+  if (input.value <= 0 || input.value === null) {
+    alert('Board inválido!');
+  }
   pixelBoardLimiter();
   mainSquare.style.width = `${input.value * 42}px`;
   mainSquare.style.height = `${input.value * 42}px`;
