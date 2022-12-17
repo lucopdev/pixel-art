@@ -77,6 +77,7 @@ if (colorArray !== null && localStorage.key('colorPalette')) {
   }
 }
 // cria botão reset
+
 const btnReset = document.createElement('button');
 btnReset.id = 'clear-board';
 btnReset.innerHTML = 'Limpar';
@@ -89,16 +90,19 @@ btnReset.addEventListener('click', () => {
   }
   localStorage.removeItem('colorPalette');
   localStorage.removeItem('pixelBoard');
+  document.location.reload();
 });
 
 // cria input para tamanho do pixelboard
 const input = document.createElement('input');
 input.id = 'board-size';
+input.value = '5';
 buttonsDiv.appendChild(input);
 
 // cria o pixelboard
 const mainSquare = document.createElement('div');
 mainSquare.id = 'pixel-board';
+mainSquare.className = 'pixel-board-class';
 
 const createPixel = (numberOfPixels) => {
   const pixel = document.createElement('div');
@@ -108,7 +112,7 @@ const createPixel = (numberOfPixels) => {
   mainSquare.appendChild(pixel);
   mainSquare.style.width = `${numberOfPixels * 42}px`;
   mainSquare.style.height = `${numberOfPixels * 42}px`;
-  return document.body.appendChild(mainSquare);
+  document.body.appendChild(mainSquare);
 };
 
 const createPixelBoard = (numberOfPixels) => {
@@ -118,7 +122,18 @@ const createPixelBoard = (numberOfPixels) => {
     }
   }
 };
-createPixelBoard(10);
+createPixelBoard(5);
+console.log(mainSquare.children.length);
+// função para remover pixelBoard
+const removePixelBoard = () => {
+  const pixel = document.getElementsByClassName('pixel');
+  while (mainSquare.children.length > 0) {
+    for (let index = 0; index < mainSquare.children.length; index += 1) {
+      mainSquare.removeChild(pixel[index]);
+    }
+  }
+};
+
 // função para limitar o pixel board
 const pixelBoardLimiter = () => {
   if (input.value < 5) {
@@ -143,13 +158,18 @@ buttonsDiv.appendChild(buttonVQV);
 buttonVQV.addEventListener('click', () => {
   if (input.value <= 0 || input.value === null) {
     alert('Board inválido!');
+  } else {
+    for (let index = 0; index < document.body.children.length; index += 1) {
+      if (document.body.children[index].classList.contains('pixel-board-class')) {
+        console.log(document.body.children);
+        removePixelBoard();
+        createPixelBoard(input.value);
+      }
+    }
   }
-  pixelBoardLimiter();
-  mainSquare.style.width = `${input.value * 42}px`;
-  mainSquare.style.height = `${input.value * 42}px`;
-
-  console.log(mainSquare.children);
+  console.log(document.body.children);
 });
+
 // Lógica para salvar a cor no clique
 const color = palette.getElementsByClassName('color');
 let colorSave = color[0].style.backgroundColor;
@@ -195,10 +215,10 @@ mainSquare.addEventListener('click', () => {
 });
 
 const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
-const pixel = mainSquare.getElementsByClassName('pixel');
+const storagePixel = mainSquare.getElementsByClassName('pixel');
 if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
   for (let index = 0; index < mainSquare.children.length; index += 1) {
-    pixel[index].style.backgroundColor = pixelColorBg[index];
+    storagePixel[index].style.backgroundColor = pixelColorBg[index];
   }
 }
 

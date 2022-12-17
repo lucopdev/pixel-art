@@ -47,12 +47,12 @@ header {
   margin: 10px auto;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.342);
-  width: 35%;
+  width: fit-content;
 }
 
 #color-palette {
   text-align: center;
-  width: 500px;
+  width: fit-content;
   margin: 0px auto;
 }
 
