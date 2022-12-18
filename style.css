@@ -1,12 +1,12 @@
 :root {
 
-  --backgroundColor1: rgb(11, 2, 32);
+  --bgColor1: rgb(11, 2, 32);
 
-  --backgroundColor2: rgb(0, 255, 115);
+  --bgColor2: rgb(0, 255, 115);
 
-  --backgroundColor3: rgb(8, 2, 37);
+  --bgColor3: rgb(8, 2, 37);
 
-  --color-principal: #0000008e;
+  --color-main: #0000008e;
 
   --color-button: #ececec00;
 
@@ -23,11 +23,11 @@
 }
 
 body {
-  background-image: linear-gradient(to right, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
+  background-image: linear-gradient(to right, var(--bgColor1), var(--bgColor2), var(--bgColor3));
 }
 
 header {
-  background-image: linear-gradient(to bottom, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
+  background-image: linear-gradient(to bottom, var(--bgColor1), var(--bgColor2), var(--bgColor3));
   font-size: 20px;
 }
 
@@ -61,7 +61,7 @@ header {
   margin: 10px auto;
   text-align: center;
   width: fit-content;
-  background-color: var(--color-principal);
+  background-color: var(--color-main);
   border-radius: 15px;
 }
 
@@ -111,7 +111,7 @@ header {
 
 #pixel-board {
   margin: 0px auto;
-  background-color: var(--color-principal);
+  background-color: var(--color-main);
   font-size: 0;
 }
 
