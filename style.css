@@ -1,4 +1,5 @@
 :root {
+
   --backgroundColor1: rgb(11, 2, 32);
 
   --backgroundColor2: rgb(0, 255, 115);
@@ -9,7 +10,7 @@
 
   --color-button: #ececec00;
 
-  --color-font: #ffffff;
+  --color-font: white;
 
 }
 
@@ -17,12 +18,12 @@
   margin: 0;
   padding: 0;
   color: var(--color-font);
-  font-family:monospace;
-  font-weight: bold;
+  font-family: monospace;
+  font-weight: 800;
 }
 
 body {
-    background-image: linear-gradient(to right, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
+  background-image: linear-gradient(to right, var(--backgroundColor1), var(--backgroundColor2), var(--backgroundColor3));
 }
 
 header {
@@ -43,7 +44,7 @@ header {
 }
 
 #configContainer {
-  font-size: 0px;
+  font-size: 0;
   margin: 10px auto;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.342);
@@ -53,7 +54,7 @@ header {
 #color-palette {
   text-align: center;
   width: fit-content;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 #buttons-div {
@@ -92,7 +93,7 @@ header {
   text-align: center;
   vertical-align: bottom;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 800;
   border: 2px solid black;
   color: black;
 }
