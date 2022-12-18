@@ -22,16 +22,16 @@ section.appendChild(palette);
 const createColorPalette = () => {
   const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
   for (let index = 0; index < colorsPaletteArray.length; index += 1) {
-    const square = document.createElement('div');
+    const paletteColorsSquare = document.createElement('div');
     if (index === 0) {
-      square.className = 'selected ';
+      paletteColorsSquare.className = 'selected ';
     }
-    square.className += 'color';
-    square.style.width = '80px';
-    square.style.height = '40px';
-    square.style.border = 'solid 1px black';
-    square.style.backgroundColor = colorsPaletteArray[index];
-    palette.appendChild(square);
+    paletteColorsSquare.className += 'color';
+    paletteColorsSquare.style.width = '80px';
+    paletteColorsSquare.style.height = '40px';
+    paletteColorsSquare.style.border = 'solid 1px black';
+    paletteColorsSquare.style.backgroundColor = colorsPaletteArray[index];
+    palette.appendChild(paletteColorsSquare);
   }
 };
 createColorPalette();
@@ -97,12 +97,15 @@ btnReset.addEventListener('click', () => {
 const input = document.createElement('input');
 input.id = 'board-size';
 input.value = '5';
+input.type = 'number';
+input.setAttribute('min', '1');
 buttonsDiv.appendChild(input);
 
 // cria o pixelboard
 const mainSquare = document.createElement('div');
 mainSquare.id = 'pixel-board';
 mainSquare.className = 'pixel-board-class';
+document.body.appendChild(mainSquare);
 
 const createPixel = (numberOfPixels) => {
   const pixel = document.createElement('div');
@@ -112,7 +115,6 @@ const createPixel = (numberOfPixels) => {
   mainSquare.appendChild(pixel);
   mainSquare.style.width = `${numberOfPixels * 42}px`;
   mainSquare.style.height = `${numberOfPixels * 42}px`;
-  document.body.appendChild(mainSquare);
 };
 
 const createPixelBoard = (numberOfPixels) => {
@@ -156,18 +158,17 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
-  if (input.value <= 0 || input.value === null) {
+  if (input.value === ' ' || input.value === null) {
     alert('Board inválido!');
   } else {
     for (let index = 0; index < document.body.children.length; index += 1) {
       if (document.body.children[index].classList.contains('pixel-board-class')) {
-        console.log(document.body.children);
         removePixelBoard();
+        pixelBoardLimiter();
         createPixelBoard(input.value);
       }
     }
   }
-  console.log(document.body.children);
 });
 
 // Lógica para salvar a cor no clique
