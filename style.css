@@ -23,11 +23,13 @@
 }
 
 body {
-  background-image: linear-gradient(to right, var(--bgColor1), var(--bgColor2), var(--bgColor3));
+  background-image:
+  linear-gradient(to right, var(--bgColor1), var(--bgColor2), var(--bgColor3));
 }
 
 header {
-  background-image: linear-gradient(to bottom, var(--bgColor1), var(--bgColor2), var(--bgColor3));
+  background-image:
+  linear-gradient(to bottom, var(--bgColor1), var(--bgColor2), var(--bgColor3));
   font-size: 20px;
 }
 
@@ -110,7 +112,7 @@ header {
 }
 
 #pixel-board {
-  margin: 0px auto;
+  margin: 0 auto;
   background-color: var(--color-main);
   font-size: 0;
 }
