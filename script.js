@@ -96,7 +96,6 @@ btnReset.addEventListener('click', () => {
 // cria input para tamanho do pixelboard
 const input = document.createElement('input');
 input.id = 'board-size';
-input.value = '5';
 input.type = 'number';
 input.setAttribute('min', '1');
 buttonsDiv.appendChild(input);
@@ -158,7 +157,7 @@ buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
 buttonVQV.addEventListener('click', () => {
-  if (input.value === ' ' || input.value === null) {
+  if (input.value.length <= 0) {
     alert('Board inválido!');
   } else {
     for (let index = 0; index < document.body.children.length; index += 1) {
@@ -166,6 +165,8 @@ buttonVQV.addEventListener('click', () => {
         removePixelBoard();
         pixelBoardLimiter();
         createPixelBoard(input.value);
+        console.log(createPixelBoard);
+      // ====> localStorage.setItem('pixelBoard', JSON.stringify((a)));
       }
     }
   }
@@ -222,6 +223,16 @@ if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
     storagePixel[index].style.backgroundColor = pixelColorBg[index];
   }
 }
+
+// ------ RECUPERAR O PIXELBOARD NO LOCALSTORAGE -------
+
+// const pixelBoardStoraged = JSON.parse(localStorage.getItem('pixelBoard'));
+// const storagePixel = mainSquare.getElementsByClassName('pixel');
+// if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
+//   for (let index = 0; index < mainSquare.children.length; index += 1) {
+//     storagePixel[index].style.backgroundColor = pixelColorBg[index];
+//   }
+// }
 
 // definir classe Selected apenas para a cor clicada (essa feature é desnecessária pois resolvi o código sem precisar fiz apenas por ser um item obrigatório)
 color[0].addEventListener('click', () => {
