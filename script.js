@@ -50,8 +50,8 @@ buttonsDiv.appendChild(btnRandom);
 // evento para gerar cores automaticamente ao clicar no botão aleatório
 const square = palette.childNodes;
 const size = palette.childNodes.length;
-
 let allColors = '';
+
 btnRandom.addEventListener('click', () => {
   const colorArray = [];
   for (let index = 0; index < size; index += 1) {
@@ -69,13 +69,6 @@ btnRandom.addEventListener('click', () => {
   }
 });
 
-// resgata as cores do localStorage
-const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
-if (colorArray !== null && localStorage.key('colorPalette')) {
-  for (let index = 0; index < colorArray.length; index += 1) {
-    square[index + 1].style.backgroundColor = colorArray[index];
-  }
-}
 // cria botão reset
 
 const btnReset = document.createElement('button');
@@ -90,6 +83,7 @@ btnReset.addEventListener('click', () => {
   }
   localStorage.removeItem('colorPalette');
   localStorage.removeItem('pixelBoard');
+  localStorage.removeItem('boardSize');
   document.location.reload();
 });
 
@@ -104,7 +98,6 @@ buttonsDiv.appendChild(input);
 const mainSquare = document.createElement('div');
 mainSquare.id = 'pixel-board';
 mainSquare.className = 'pixel-board-class';
-document.body.appendChild(mainSquare);
 
 const createPixel = (numberOfPixels) => {
   const pixel = document.createElement('div');
@@ -114,6 +107,7 @@ const createPixel = (numberOfPixels) => {
   mainSquare.appendChild(pixel);
   mainSquare.style.width = `${numberOfPixels * 42}px`;
   mainSquare.style.height = `${numberOfPixels * 42}px`;
+  return document.body.appendChild(mainSquare);
 };
 
 const createPixelBoard = (numberOfPixels) => {
@@ -124,7 +118,7 @@ const createPixelBoard = (numberOfPixels) => {
   }
 };
 createPixelBoard(5);
-console.log(mainSquare.children.length);
+
 // função para remover pixelBoard
 const removePixelBoard = () => {
   const pixel = document.getElementsByClassName('pixel');
@@ -162,11 +156,11 @@ buttonVQV.addEventListener('click', () => {
   } else {
     for (let index = 0; index < document.body.children.length; index += 1) {
       if (document.body.children[index].classList.contains('pixel-board-class')) {
+        localStorage.removeItem('pixelBoard');
         removePixelBoard();
         pixelBoardLimiter();
         createPixelBoard(input.value);
-        console.log(createPixelBoard);
-      // ====> localStorage.setItem('pixelBoard', JSON.stringify((a)));
+        localStorage.setItem('boardSize', JSON.stringify((input.value)));
       }
     }
   }
@@ -207,6 +201,26 @@ window.addEventListener('mouseup', () => {
   draw = false;
 });
 
+// resgata as cores do localStorage
+const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
+if (colorArray !== null && localStorage.key('colorPalette')) {
+  for (let index = 0; index < colorArray.length; index += 1) {
+    square[index + 1].style.backgroundColor = colorArray[index];
+  }
+}
+
+// ------ RECUPERAR O PIXELBOARD NO LOCALSTORAGE -------
+const pixelBoardGetStorage = () => {
+  for (let index = 0; index < localStorage.length; index += 1) {
+    if (localStorage.length > 0 && localStorage.key(index) === 'boardSize') {
+      const boardSize = JSON.parse(localStorage.getItem('boardSize'));
+      removePixelBoard();
+      createPixelBoard(boardSize);
+    }
+  }
+};
+pixelBoardGetStorage();
+
 // cria a função para salvar e recuperar o deseneho atual no LocalStorage
 mainSquare.addEventListener('click', () => {
   const pixelsBackgroundArray = [];
@@ -218,21 +232,14 @@ mainSquare.addEventListener('click', () => {
 
 const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
 const storagePixel = mainSquare.getElementsByClassName('pixel');
-if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
-  for (let index = 0; index < mainSquare.children.length; index += 1) {
-    storagePixel[index].style.backgroundColor = pixelColorBg[index];
+for (let index2 = 0; index2 < localStorage.length; index2 += 1) {
+  if (pixelColorBg !== null && localStorage.key(index2) === 'pixelBoard') {
+    for (let index = 0; index < mainSquare.children.length; index += 1) {
+      storagePixel[index].style.backgroundColor = pixelColorBg[index];
+    }
   }
 }
 
-// ------ RECUPERAR O PIXELBOARD NO LOCALSTORAGE -------
-
-// const pixelBoardStoraged = JSON.parse(localStorage.getItem('pixelBoard'));
-// const storagePixel = mainSquare.getElementsByClassName('pixel');
-// if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
-//   for (let index = 0; index < mainSquare.children.length; index += 1) {
-//     storagePixel[index].style.backgroundColor = pixelColorBg[index];
-//   }
-// }
 
 // definir classe Selected apenas para a cor clicada (essa feature é desnecessária pois resolvi o código sem precisar fiz apenas por ser um item obrigatório)
 color[0].addEventListener('click', () => {
