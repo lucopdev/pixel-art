@@ -1,7 +1,12 @@
-const headerDiv = document.createElement('header');
-document.body.appendChild(headerDiv);
-const header = document.getElementsByTagName('header');
+const colorPaletteClass = 'color-palette';
+const pixelBoardClass = 'pixel-board';
+const boardSizeClass = 'board-size';
+const header = document.createElement('header');
 const h1 = document.createElement('h1');
+h1.id = 'title';
+h1.innerHTML = 'Paleta de Cores';
+document.body.appendChild(header);
+header.appendChild(h1);
 
 const createDiv = (id, parent, className) => {
   const div = document.createElement('div');
@@ -24,14 +29,10 @@ const createInput = (id, parent) => {
   input.setAttribute('min', '1');
   parent.appendChild(input);
 };
-// ---- TITULO -------
-h1.id = 'title';
-h1.innerHTML = 'Paleta de Cores';
-header[0].appendChild(h1);
 
 const createColorPalette = () => {
   const colorsPaletteArray = ['black', 'red', 'blue', 'yellow'];
-  const colorPalette = document.getElementById('color-palette');
+  const colorPalette = document.getElementById(colorPaletteClass);
   for (let index = 0; index < colorsPaletteArray.length; index += 1) {
     createDiv('color', colorPalette, 'color');
     const paletteColorsSquare = document.getElementsByClassName('color');
@@ -43,7 +44,7 @@ const createColorPalette = () => {
 };
 
 const generateRandomColors = () => {
-  const colors = document.getElementById('color-palette').childNodes;
+  const colors = document.getElementById(colorPaletteClass).childNodes;
   const size = colors.length;
   const btnRandom = document.getElementById('button-random-color');
   let allColors = '';
@@ -76,7 +77,7 @@ const clearBoard = () => {
 };
 
 const createPixelBoard = (numberOfPixels) => {
-  const pixelBoard = document.getElementById('pixel-board');
+  const pixelBoard = document.getElementById(pixelBoardClass);
   pixelBoard.style.width = `${numberOfPixels * 42}px`;
   pixelBoard.style.height = `${numberOfPixels * 42}px`;
   for (let outerIndex = 0; outerIndex < numberOfPixels; outerIndex += 1) {
@@ -87,7 +88,7 @@ const createPixelBoard = (numberOfPixels) => {
 };
 
 const removePixelBoard = () => {
-  const pixelBoard = document.getElementById('pixel-board');
+  const pixelBoard = document.getElementById(pixelBoardClass);
   const pixel = document.getElementsByClassName('pixel');
   while (pixelBoard.children.length > 0) {
     for (let index = 0; index < pixelBoard.children.length; index += 1) {
@@ -97,8 +98,8 @@ const removePixelBoard = () => {
 };
 
 const pixelBoardLimiter = () => {
-  const pixelBoard = document.getElementById('pixel-board');
-  const input = document.getElementById('board-size');
+  const pixelBoard = document.getElementById(pixelBoardClass);
+  const input = document.getElementById(boardSizeClass);
   if (input.value < 5) {
     input.value = 5;
   }
@@ -114,7 +115,7 @@ const pixelBoardLimiter = () => {
 };
 
 const vqvEventBtn = () => {
-  const input = document.getElementById('board-size');
+  const input = document.getElementById(boardSizeClass);
   for (let index = 0; index < document.body.children.length; index += 1) {
     if (document.body.children[index].classList.contains('pixel-board-class')) {
       localStorage.removeItem('pixelBoard');
@@ -128,7 +129,7 @@ const vqvEventBtn = () => {
 
 const verifyInput = () => {
   const buttonVQV = document.getElementById('generate-board');
-  const input = document.getElementById('board-size');
+  const input = document.getElementById(boardSizeClass);
   buttonVQV.addEventListener('click', () => {
     if (input.value.length <= 0) {
       alert('Board inválido!');
@@ -150,8 +151,8 @@ const getSelectedColor = () => {
 };
 
 const pixelPaint = () => {
-  const pixelBoard2 = document.getElementById('pixel-board');
-  pixelBoard2.addEventListener('click', (e) => {
+  const pixelBoard = document.getElementById(pixelBoardClass);
+  pixelBoard.addEventListener('click', (e) => {
     if (e.target.classList.contains('pixel')) {
       e.target.style.backgroundColor = getSelectedColor();
     }
@@ -160,7 +161,7 @@ const pixelPaint = () => {
 
 const recoveryPalette = () => {
   const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
-  const square = document.getElementById('color-palette').childNodes;
+  const square = document.getElementById(colorPaletteClass).childNodes;
   if (colorArray !== null && localStorage.key('colorPalette')) {
     for (let index = 0; index < colorArray.length; index += 1) {
       square[index + 1].style.backgroundColor = colorArray[index];
@@ -179,7 +180,7 @@ const recoveryPixelBoard = () => {
 };
 
 const saveDraw = () => {
-  const pixelBoard = document.getElementById('pixel-board');
+  const pixelBoard = document.getElementById(pixelBoardClass);
   pixelBoard.addEventListener('click', () => {
     const pixelsBackgroundArray = [];
     for (let index = 0; index < pixelBoard.children.length; index += 1) {
@@ -190,7 +191,7 @@ const saveDraw = () => {
 };
 
 const recoveryDraw = () => {
-  const pixelBoard = document.getElementById('pixel-board');
+  const pixelBoard = document.getElementById(pixelBoardClass);
   const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
   const storagePixel = pixelBoard.getElementsByClassName('pixel');
   if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
@@ -201,11 +202,11 @@ const recoveryDraw = () => {
 };
 
 const selectOneColor = () => {
-  const colorPalette = document.getElementById('color-palette');
+  const colorPalette = document.getElementById(colorPaletteClass);
   const colors = document.getElementsByClassName('color');
   colorPalette.addEventListener('click', (e) => {
     for (let index = 0; index < colors.length; index += 1) {
-      if (e.target.classList.contains('color-palette')) {
+      if (e.target.classList.contains(colorPaletteClass)) {
         return;
       }
       if (colors[index].classList.contains('selected')) {
@@ -217,18 +218,19 @@ const selectOneColor = () => {
   });
 };
 
+createDiv('config-container', document.body);
+const div = document.getElementById('config-container');
+createDiv(colorPaletteClass, div);
+createDiv('buttons-div', div);
+const btnDiv = document.getElementById('buttons-div');
+createBtn('button-random-color', btnDiv, 'Cores aleatórias');
+createBtn('clear-board', btnDiv, 'Limpar');
+createInput(boardSizeClass, btnDiv);
+createBtn('generate-board', btnDiv, 'VQV');
+createColorPalette();
+createDiv(pixelBoardClass, document.body, 'pixel-board-class');
+
 window.onload = () => {
-  createDiv('config-container', document.body);
-  const div = document.getElementById('config-container');
-  createDiv('color-palette', div);
-  createDiv('buttons-div', div);
-  const btnDiv = document.getElementById('buttons-div');
-  createBtn('button-random-color', btnDiv, 'Cores aleatórias');
-  createBtn('clear-board', btnDiv, 'Limpar');
-  createInput('board-size', btnDiv);
-  createBtn('generate-board', btnDiv, 'VQV');
-  createColorPalette();
-  createDiv('pixel-board', document.body, 'pixel-board-class');
   createPixelBoard(5);
   generateRandomColors();
   recoveryPalette();
