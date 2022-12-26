@@ -41,14 +41,17 @@ header {
   border-radius: 10px;
   margin-left: 5px;
   margin-right: 5px;
+  width: 80px;
+  height: 40px;
+  border: 1px solid black;
 }
 
-#configContainer {
+#config-container {
   font-size: 0;
   margin: 10px auto;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.342);
-  width: fit-content;
+  /* width: 500px; */
 }
 
 #color-palette {
@@ -119,4 +122,6 @@ header {
   background-color: white;
   border: solid 1px black;
   display: inline-block;
+  width: 40px;
+  height: 40px;
 }
