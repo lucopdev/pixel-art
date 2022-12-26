@@ -165,37 +165,59 @@ buttonVQV.addEventListener('click', () => {
   }
 });
 
-// Lógica para salvar a cor no clique
-const color = palette.getElementsByClassName('color');
-let colorSave = color[0].style.backgroundColor;
-palette.addEventListener('click', (event) => {
-  if (event.target.className.includes('color')) {
-    colorSave = event.target.style.backgroundColor;
+const getSelectedColor = () => {
+  const colors = document.getElementsByClassName('color');
+  let selected;
+  for (let index = 0; index < colors.length; index += 1) {
+    if (colors[index].classList.contains('selected')) {
+      selected = colors[index].style.backgroundColor;
+    }
   }
-});
+  return selected;
+};
 
-// --------- LÓGICA PARA PINTAR COM MOUSEDOWN -----------
-mainSquare.addEventListener('mouseover', (event) => {
-  if (!draw) {
-    return;
-  }
-  const element = event.target;
-  if (element.className.includes('pixel')) {
-    element.style.backgroundColor = colorSave;
-  }
-});
-mainSquare.addEventListener('mousedown', (event) => {
-  const element = event.target;
-  if (element.className.includes('pixel')) {
-    element.style.backgroundColor = colorSave;
-  }
-});
-window.addEventListener('mousedown', () => {
-  draw = true;
-});
-window.addEventListener('mouseup', () => {
-  draw = false;
-});
+const pixelPaint = () => {
+  const pixelBoard = document.getElementById('pixel-board');
+  pixelBoard.addEventListener('click', (e) => {
+    if (e.target.classList.contains('pixel')) {
+      e.target.style.backgroundColor = getSelectedColor();
+    }
+  });
+};
+
+// // Lógica para salvar a cor no clique
+// const color = palette.getElementsByClassName('color');
+// let colorSave = color[0].style.backgroundColor;
+// palette.addEventListener('click', (event) => {
+//   if (event.target.className.includes('color')) {
+//     colorSave = event.target.style.backgroundColor;
+//   }
+// });
+
+// // --------- LÓGICA PARA PINTAR COM MOUSEDOWN -----------
+// const scratch = () => {
+//   mainSquare.addEventListener('mouseover', (event) => {
+//     if (!draw) {
+//       return;
+//     }
+//     const element = event.target;
+//     if (element.className.includes('pixel')) {
+//       element.style.backgroundColor = colorSave;
+//     }
+//   });
+//   mainSquare.addEventListener('mousedown', (event) => {
+//     const element = event.target;
+//     if (element.className.includes('pixel')) {
+//       element.style.backgroundColor = colorSave;
+//     }
+//   });
+//   window.addEventListener('mousedown', () => {
+//     draw = true;
+//   });
+//   window.addEventListener('mouseup', () => {
+//     draw = false;
+//   });
+// };
 
 const recoveryPalette = () => {
   const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
@@ -254,6 +276,9 @@ const selectOneColor = () => {
 };
 
 window.onload = () => {
+  getSelectedColor();
+  pixelPaint();
+  // scratch();
   recoveryPalette();
   recoveryPixelBoard();
   selectOneColor();
