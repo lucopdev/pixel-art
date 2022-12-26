@@ -197,16 +197,16 @@ window.addEventListener('mouseup', () => {
   draw = false;
 });
 
-// ------------ RESGATAR PALETTE COLORS DO LOCALSTORAGE -------------
-const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
-if (colorArray !== null && localStorage.key('colorPalette')) {
-  for (let index = 0; index < colorArray.length; index += 1) {
-    square[index + 1].style.backgroundColor = colorArray[index];
+const recoveryPalette = () => {
+  const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
+  if (colorArray !== null && localStorage.key('colorPalette')) {
+    for (let index = 0; index < colorArray.length; index += 1) {
+      square[index + 1].style.backgroundColor = colorArray[index];
+    }
   }
-}
+};
 
-// ------ RECUPERAR O PIXELBOARD NO LOCALSTORAGE -------
-const pixelBoardGetStorage = () => {
+const recoveryPixelBoard = () => {
   for (let index = 0; index < localStorage.length; index += 1) {
     if (localStorage.length > 0 && localStorage.key(index) === 'boardSize') {
       const boardSize = JSON.parse(localStorage.getItem('boardSize'));
@@ -215,9 +215,7 @@ const pixelBoardGetStorage = () => {
     }
   }
 };
-pixelBoardGetStorage();
 
-// ---------- SALVAR E RESTAURAR PINTURA DO LOCALSTORAGE ----------------
 const saveDraw = () => {
   mainSquare.addEventListener('click', () => {
     const pixelsBackgroundArray = [];
@@ -256,6 +254,8 @@ const selectOneColor = () => {
 };
 
 window.onload = () => {
+  recoveryPalette();
+  recoveryPixelBoard();
   selectOneColor();
   saveDraw();
   recoveryDraw();
