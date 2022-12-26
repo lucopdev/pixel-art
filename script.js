@@ -17,6 +17,7 @@ document.body.appendChild(section);
 // -------- CONTAINER DA PALETA DE CORES
 const palette = document.createElement('div');
 palette.id = 'color-palette';
+palette.className = 'color-palette';
 section.appendChild(palette);
 
 // ------ PALETA DE CORES -----------
@@ -217,41 +218,45 @@ const pixelBoardGetStorage = () => {
 pixelBoardGetStorage();
 
 // ---------- SALVAR E RESTAURAR PINTURA DO LOCALSTORAGE ----------------
-mainSquare.addEventListener('click', () => {
-  const pixelsBackgroundArray = [];
-  for (let index = 0; index < mainSquare.children.length; index += 1) {
-    pixelsBackgroundArray.push(mainSquare.children[index].style.backgroundColor);
-    localStorage.setItem('pixelBoard', JSON.stringify(pixelsBackgroundArray));
-  }
-});
+const saveDraw = () => {
+  mainSquare.addEventListener('click', () => {
+    const pixelsBackgroundArray = [];
+    for (let index = 0; index < mainSquare.children.length; index += 1) {
+      pixelsBackgroundArray.push(mainSquare.children[index].style.backgroundColor);
+      localStorage.setItem('pixelBoard', JSON.stringify(pixelsBackgroundArray));
+    }
+  });
+};
 
-const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
-const storagePixel = mainSquare.getElementsByClassName('pixel');
-for (let index2 = 0; index2 < localStorage.length; index2 += 1) {
-  if (pixelColorBg !== null && localStorage.key(index2) === 'pixelBoard') {
+const recoveryDraw = () => {
+  const pixelColorBg = JSON.parse(localStorage.getItem('pixelBoard'));
+  const storagePixel = mainSquare.getElementsByClassName('pixel');
+  if (pixelColorBg !== null && localStorage.key('pixelBoard')) {
     for (let index = 0; index < mainSquare.children.length; index += 1) {
       storagePixel[index].style.backgroundColor = pixelColorBg[index];
     }
   }
-}
-
+};
 
 const selectOneColor = () => {
-  // const colorPalette = document.getElementById('color-palette');
+  const colorPalette = document.getElementById('color-palette');
   const colors = document.getElementsByClassName('color');
-  for (let index = 0; index < colors.length; index += 1) {
-    colors[index].addEventListener('click', (e) => {
-      for (let index2 = 0; index2 < colors.length; index2 += 1) {
-        if (colors[index2].classList.contains('selected')) {
-          colors[index2].classList.remove('selected');
-          e.target.classList.add('selected');
-        }
+  colorPalette.addEventListener('click', (e) => {
+    for (let index2 = 0; index2 < colors.length; index2 += 1) {
+      if (e.target.classList.contains('color-palette')) {
+        return;
+      }
+      if (colors[index2].classList.contains('selected')) {
+        colors[index2].classList.remove('selected');
         e.target.classList.add('selected');
       }
-    });
-  }
+      e.target.classList.add('selected');
+    }
+  });
 };
 
 window.onload = () => {
   selectOneColor();
+  saveDraw();
+  recoveryDraw();
 };
