@@ -3,7 +3,6 @@ document.body.appendChild(headerDiv);
 const header = document.getElementsByTagName('header');
 const h1 = document.createElement('h1');
 const section = document.createElement('section');
-let draw = false;
 
 // ---- TITULO -------
 h1.id = 'title';
@@ -148,22 +147,27 @@ buttonVQV.id = 'generate-board';
 buttonVQV.innerText = 'VQV';
 buttonsDiv.appendChild(buttonVQV);
 
-// -------- BOTÃO VQV REDIMENSIONA O PIXELBOARD ------------
-buttonVQV.addEventListener('click', () => {
-  if (input.value.length <= 0) {
-    alert('Board inválido!');
-  } else {
-    for (let index = 0; index < document.body.children.length; index += 1) {
-      if (document.body.children[index].classList.contains('pixel-board-class')) {
-        localStorage.removeItem('pixelBoard');
-        removePixelBoard();
-        pixelBoardLimiter();
-        createPixelBoard(input.value);
-        localStorage.setItem('boardSize', JSON.stringify((input.value)));
-      }
+const vqvEventBtn = () => {
+  for (let index = 0; index < document.body.children.length; index += 1) {
+    if (document.body.children[index].classList.contains('pixel-board-class')) {
+      localStorage.removeItem('pixelBoard');
+      removePixelBoard();
+      pixelBoardLimiter();
+      createPixelBoard(input.value);
+      localStorage.setItem('boardSize', JSON.stringify((input.value)));
     }
   }
-});
+};
+
+const verifyInput = () => {
+  buttonVQV.addEventListener('click', () => {
+    if (input.value.length <= 0) {
+      alert('Board inválido!');
+    } else {
+      vqvEventBtn();
+    }
+  });
+};
 
 const getSelectedColor = () => {
   const colors = document.getElementsByClassName('color');
@@ -184,40 +188,6 @@ const pixelPaint = () => {
     }
   });
 };
-
-// // Lógica para salvar a cor no clique
-// const color = palette.getElementsByClassName('color');
-// let colorSave = color[0].style.backgroundColor;
-// palette.addEventListener('click', (event) => {
-//   if (event.target.className.includes('color')) {
-//     colorSave = event.target.style.backgroundColor;
-//   }
-// });
-
-// // --------- LÓGICA PARA PINTAR COM MOUSEDOWN -----------
-// const scratch = () => {
-//   mainSquare.addEventListener('mouseover', (event) => {
-//     if (!draw) {
-//       return;
-//     }
-//     const element = event.target;
-//     if (element.className.includes('pixel')) {
-//       element.style.backgroundColor = colorSave;
-//     }
-//   });
-//   mainSquare.addEventListener('mousedown', (event) => {
-//     const element = event.target;
-//     if (element.className.includes('pixel')) {
-//       element.style.backgroundColor = colorSave;
-//     }
-//   });
-//   window.addEventListener('mousedown', () => {
-//     draw = true;
-//   });
-//   window.addEventListener('mouseup', () => {
-//     draw = false;
-//   });
-// };
 
 const recoveryPalette = () => {
   const colorArray = JSON.parse(localStorage.getItem('colorPalette'));
@@ -276,9 +246,9 @@ const selectOneColor = () => {
 };
 
 window.onload = () => {
+  verifyInput();
   getSelectedColor();
   pixelPaint();
-  // scratch();
   recoveryPalette();
   recoveryPixelBoard();
   selectOneColor();
