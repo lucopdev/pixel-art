@@ -1,12 +1,19 @@
+const configContainerClass = 'config-container';
 const colorPaletteClass = 'color-palette';
 const pixelBoardClass = 'pixel-board';
 const boardSizeClass = 'board-size';
-const header = document.createElement('header');
-const h1 = document.createElement('h1');
-h1.id = 'title';
-h1.innerHTML = 'Paleta de Cores';
-document.body.appendChild(header);
-header.appendChild(h1);
+
+const createHeader = (parent, parentAfter) => {
+  const header = document.createElement('header');
+  parent.insertBefore(header, parentAfter);
+};
+
+const createH1 = (id, parent) => {
+  const h1 = document.createElement('h1');
+  h1.id = id;
+  h1.innerHTML = 'Paleta de Cores';
+  parent.appendChild(h1);
+};
 
 const createDiv = (id, parent, className) => {
   const div = document.createElement('div');
@@ -98,19 +105,12 @@ const removePixelBoard = () => {
 };
 
 const pixelBoardLimiter = () => {
-  const pixelBoard = document.getElementById(pixelBoardClass);
   const input = document.getElementById(boardSizeClass);
   if (input.value < 5) {
     input.value = 5;
   }
   if (input.value > 50) {
     input.value = 50;
-  }
-  if (pixelBoard.style.width > parseInt(('50px'), 10)) {
-    pixelBoard.style.width = '50px';
-  }
-  if (pixelBoard.style.height > parseInt(('50px'), 10)) {
-    pixelBoard.style.height = '50px';
   }
 };
 
@@ -218,7 +218,7 @@ const selectOneColor = () => {
   });
 };
 
-createDiv('config-container', document.body);
+createDiv(configContainerClass, document.body);
 const div = document.getElementById('config-container');
 createDiv(colorPaletteClass, div);
 createDiv('buttons-div', div);
@@ -231,6 +231,10 @@ createColorPalette();
 createDiv(pixelBoardClass, document.body, 'pixel-board-class');
 
 window.onload = () => {
+  const configContainer = document.getElementById(configContainerClass);
+  createHeader(document.body, configContainer);
+  const header = document.getElementsByTagName('header');
+  createH1('title', header[0]);
   createPixelBoard(5);
   generateRandomColors();
   recoveryPalette();
